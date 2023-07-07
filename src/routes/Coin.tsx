@@ -194,7 +194,7 @@ function Coin() {
             pathname: "/",
           }}
         >
-          BACK TO HOME
+          <span style={{color:"tomato"}}>BACK TO HOME</span>
         </Link>
       </Header>
       {loading ? (
@@ -212,7 +212,7 @@ function Coin() {
             </OverviewItem>
             <OverviewItem>
               <span>Price:</span>
-              <span>${tickersData?.quotes.USD.price.toFixed(3)}</span>
+              <span>${tickersData?.quotes?.USD?.price?.toFixed(3)}</span>
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>
