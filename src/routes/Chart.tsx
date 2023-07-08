@@ -21,6 +21,7 @@ interface IHistorical {
 // 공식 문서를 참고하여 차트를 만들자
 interface ChartProps {
   coinId: string;
+  isDark: boolean;
 }
 // apexchart는 JS 차트 라이브러리이다.
 /*
@@ -34,7 +35,7 @@ interface ChartProps {
                   y: [6632.01, 6643.59, 6620, 6630.11]
                 },
 */
-const Chart = ({ coinId }: ChartProps) => {
+const Chart = ({ coinId,isDark }: ChartProps) => {
   const { isLoading, data } = useQuery<IHistorical[]>(
     ["ohlcv", coinId],
     () => fetchCoinHistory(coinId),
@@ -63,7 +64,7 @@ const Chart = ({ coinId }: ChartProps) => {
           options={{
             //테마
             theme: {
-              mode: "dark",
+              mode: isDark ? "dark" : "light",
             },
             // 차트의 높이 너비
             chart: {

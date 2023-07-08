@@ -71,38 +71,27 @@ a {
   //color:inherit;
 }
 `;
+/*
 const ThemeBtn = styled.button`
   background-color: green;
   className: "theme-btn";
 `
-
+*/
 
 /*
 다크모드
 */
 function App() {
-  const [theme,setTheme] = useState("dark")
-  const onToggleTheme = (event:React.MouseEvent<HTMLButtonElement>) => {
-    if(theme === "dark") {
-      setTheme("light")
-    }
-    else {
-      setTheme("dark")
-    }
-  }
-
+  const [isDark, setIsDark] = useState(false);
+  const toggleDark = () => setIsDark((current) => !current);
   return (
     <>
-      <ThemeProvider theme = {theme === "dark" ? darkTheme : lightTheme}>
-        <ThemeBtn onClick={onToggleTheme}>
-            Change Theme Color
-        </ThemeBtn>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <GlobalStyle />
-        <Router />
+        <Router isDark={isDark} toggleDark={toggleDark} />
         <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>
     </>
   );
 }
-
 export default App;

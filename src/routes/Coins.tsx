@@ -39,7 +39,7 @@ const Coin = styled.li`
   }
 `;
 
-const title = styled.h1`
+const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
 `;
@@ -66,13 +66,20 @@ interface ICoin {
   type: string;
 }
 
-function Coins() {
+interface ICoinsProps {
+  toggleDark: () => void;
+}
+function Coins({toggleDark}: ICoinsProps) {
   const {isLoading, data} = useQuery<ICoin[]>(["allCoins"], fetchCoins)
   return (
     <Container>
       <Helmet>
         <title>코인</title>
       </Helmet>
+      <Header>
+        <Title>코인</Title>
+        <button onClick={toggleDark}>change Theme</button>
+      </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (
