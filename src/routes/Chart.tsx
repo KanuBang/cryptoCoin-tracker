@@ -2,6 +2,8 @@ import React from "react";
 import { useQuery } from "react-query";
 import { fetchCoinHistory } from "../api";
 import ApexChart from "react-apexcharts";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "../atom";
 
 interface IHistorical {
   time_open: string;
@@ -21,21 +23,10 @@ interface IHistorical {
 // 공식 문서를 참고하여 차트를 만들자
 interface ChartProps {
   coinId: string;
-  isDark: boolean;
 }
-// apexchart는 JS 차트 라이브러리이다.
-/*
 
- data: [{
-                  x: new Date(1538778600000),
-                  y: [6629.81, 6650.5, 6623.04, 6633.33]
-                },
-                {
-                  x: new Date(1538780400000),
-                  y: [6632.01, 6643.59, 6620, 6630.11]
-                },
-*/
-const Chart = ({ coinId,isDark }: ChartProps) => {
+const Chart = ({coinId}: ChartProps) => {
+  const isDark = useRecoilValue(isDarkAtom)
   const { isLoading, data } = useQuery<IHistorical[]>(
     ["ohlcv", coinId],
     () => fetchCoinHistory(coinId),
